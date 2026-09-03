@@ -12,6 +12,11 @@ class CandidateSeeder extends Seeder
 {
     public function run(): void
     {
+        // Skip if already seeded
+        if (Candidate::count() > 0) {
+            return;
+        }
+
         $candidates = [
             // Applied
             [

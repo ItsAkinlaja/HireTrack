@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Eye, EyeOff, BriefcaseBusiness, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { login } from '@/api/auth';
 import { cn } from '@/lib/utils';
 
@@ -67,16 +67,12 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
         <div className="w-full max-w-xs sm:max-w-sm space-y-7">
 
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <div
-              className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm"
-              style={{ backgroundColor: '#575E44' }}
-            >
-              <BriefcaseBusiness className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-lg font-bold tracking-tight" style={{ color: '#575E44' }}>
-              HireTrack
-            </span>
+          <div className="mb-1">
+            <img
+              src="https://central.theforgebrand.shop/wp-content/uploads/2026/09/ChatGPT_Image_Sep_3__2026__08_22_43_AM-removebg-preview-e1788420541800.png"
+              alt="HireTrack"
+              className="h-14 w-auto object-contain"
+            />
           </div>
 
           {/* Heading */}

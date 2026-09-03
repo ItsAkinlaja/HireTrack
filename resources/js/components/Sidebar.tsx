@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, GitBranch, LogOut, BriefcaseBusiness } from 'lucide-react';
+import { LayoutDashboard, Users, GitBranch, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const GREEN = '#575E44';
@@ -23,11 +23,12 @@ export function Sidebar({ activePage, onNavigate, user, onLogout }: SidebarProps
     <aside className="fixed inset-y-0 left-0 z-30 flex flex-col w-56 bg-white border-r border-gray-100">
 
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-5 h-16 border-b border-gray-100">
-        <div className="h-8 w-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: GREEN }}>
-          <BriefcaseBusiness className="h-4 w-4 text-white" />
-        </div>
-        <span className="text-base font-bold tracking-tight" style={{ color: GREEN }}>HireTrack</span>
+      <div className="flex items-center px-5 h-16 border-b border-gray-100">
+        <img
+          src="https://central.theforgebrand.shop/wp-content/uploads/2026/09/ChatGPT_Image_Sep_3__2026__08_22_43_AM-removebg-preview-e1788420541800.png"
+          alt="HireTrack"
+          className="h-9 w-auto object-contain"
+        />
       </div>
 
       {/* Nav label */}

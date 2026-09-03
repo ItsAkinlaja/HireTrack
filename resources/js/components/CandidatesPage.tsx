@@ -37,11 +37,8 @@ export function CandidatesPage({ onCardClick, onAddClick }: CandidatesPageProps)
 
   return (
     <div className="space-y-5">
-      <div className="flex items-end justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Candidates</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Manage and track every candidate in your pipeline.</p>
-        </div>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Candidates</h1>
         <Button onClick={() => onAddClick()} className="bg-[#575E44] hover:bg-[#4a5139] rounded-xl shadow-sm shadow-[#575E44]/20 gap-1.5">
           <Plus className="h-4 w-4" />
           Add Candidate
@@ -51,11 +48,6 @@ export function CandidatesPage({ onCardClick, onAddClick }: CandidatesPageProps)
       <FilterBar filters={filters} onChange={setFilters} totalCount={candidates.length} />
 
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-gray-700">Kanban Pipeline</h2>
-          <p className="text-xs text-gray-400">Drag cards to move between stages</p>
-        </div>
-
         {isLoading ? (
           <div className="bg-white rounded-2xl border border-gray-100 flex items-center justify-center py-24 gap-3 text-gray-400">
             <Spinner size="md" />

@@ -6,6 +6,9 @@ import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { login } from '@/api/auth';
 import { cn } from '@/lib/utils';
 
+const LOGO = 'https://central.theforgebrand.shop/wp-content/uploads/2026/09/ChatGPT_Image_Sep_3__2026__08_22_43_AM-removebg-preview-e1788420541800.png';
+const BG   = 'https://central.theforgebrand.shop/wp-content/uploads/2026/09/ChatGPT-Image-Sep-3-2026-12_55_15-AM.png';
+
 const loginSchema = z.object({
   email:    z.string().min(1, 'Email is required').email('Enter a valid email'),
   password: z.string().min(1, 'Password is required'),
@@ -47,48 +50,48 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
   return (
     <div className="relative min-h-screen w-full flex items-center overflow-hidden">
 
-      {/* Full-screen background image */}
-      <img
-        src="https://central.theforgebrand.shop/wp-content/uploads/2026/09/ChatGPT-Image-Sep-3-2026-12_55_15-AM.png"
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover object-center select-none"
+      {/* Background — full cover */}
+      <img src={BG} alt="" aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center select-none pointer-events-none"
         draggable={false}
       />
 
-      {/* Cream wash on left so dark text reads cleanly */}
+      {/* Cream gradient wash — wider, softer fade */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, rgba(238,232,226,0.72) 0%, rgba(238,232,226,0.30) 45%, transparent 70%)' }}
+        style={{
+          background: 'linear-gradient(to right, rgba(238,232,226,0.85) 0%, rgba(238,232,226,0.65) 38%, rgba(238,232,226,0.20) 58%, transparent 75%)',
+        }}
       />
 
-      {/* Form — sits directly on image, no card */}
-      <div className="relative z-10 w-full px-6 sm:px-0 sm:w-auto sm:ml-16 lg:ml-20 xl:ml-28">
-        <div className="w-full max-w-xs sm:max-w-sm space-y-7">
+      {/* ── Form area — wider, better centred on left half ── */}
+      <div className="relative z-10 w-full flex justify-start">
+        {/* This wrapper defines how far from the left edge */}
+        <div className="w-full max-w-md xl:max-w-lg px-8 sm:px-0 sm:ml-14 md:ml-20 lg:ml-24 xl:ml-28">
 
-          {/* Logo */}
-          <div className="mb-1">
+          {/* Logo — large, prominent, top of form */}
+          <div className="mb-10">
             <img
-              src="https://central.theforgebrand.shop/wp-content/uploads/2026/09/ChatGPT_Image_Sep_3__2026__08_22_43_AM-removebg-preview-e1788420541800.png"
+              src={LOGO}
               alt="HireTrack"
-              className="h-14 w-auto object-contain"
+              className="h-16 sm:h-20 w-auto object-contain"
             />
           </div>
 
           {/* Heading */}
-          <div className="space-y-1.5">
-            <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-gray-900">
+          <div className="mb-8 space-y-2">
+            <h1 className="text-5xl sm:text-6xl font-bold leading-none tracking-tight text-gray-900">
               Welcome<br />back.
             </h1>
-            <p className="text-sm font-medium" style={{ color: '#B27E55' }}>
+            <p className="text-base font-medium" style={{ color: '#B27E55' }}>
               Sign in to your hiring dashboard.
             </p>
           </div>
 
           {/* Server error */}
           {serverError && (
-            <div className="flex items-start gap-2 text-sm px-4 py-3 rounded-xl border"
-              style={{ background: 'rgba(178,126,85,0.12)', borderColor: '#B27E55', color: '#7a4f1e' }}>
+            <div className="flex items-start gap-2.5 text-sm px-4 py-3 rounded-2xl border mb-5"
+              style={{ background: 'rgba(178,126,85,0.10)', borderColor: '#B27E55', color: '#7a4f1e' }}>
               <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#B27E55' }} />
               <span>{serverError}</span>
             </div>
@@ -98,12 +101,8 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
 
             {/* Email */}
-            <div className="space-y-1.5">
-              <label
-                className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: '#575E44' }}
-                htmlFor="email"
-              >
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest block" style={{ color: '#575E44' }} htmlFor="email">
                 Email
               </label>
               <input
@@ -111,28 +110,18 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
                 type="email"
                 autoComplete="email"
                 placeholder="you@example.com"
-                className={cn(
-                  'w-full h-14 rounded-2xl px-5 text-base font-medium text-gray-900',
-                  'bg-white/60 backdrop-blur-sm border-2 placeholder:text-gray-400',
-                  'focus:outline-none transition-all',
-                )}
-                style={{
-                  borderColor: errors.email ? '#ef4444' : '#B27E55',
-                }}
-                onFocus={e => { if (!errors.email) e.currentTarget.style.borderColor = '#575E44'; }}
-                onBlur={e => { if (!errors.email) e.currentTarget.style.borderColor = '#B27E55'; }}
+                className="w-full h-14 rounded-2xl px-5 text-base font-medium text-gray-900 bg-white/65 backdrop-blur-sm border-2 placeholder:text-gray-400 focus:outline-none transition-all"
+                style={{ borderColor: errors.email ? '#ef4444' : '#B27E55' }}
+                onFocus={e  => { if (!errors.email) e.currentTarget.style.borderColor = '#575E44'; }}
+                onBlur={e   => { if (!errors.email) e.currentTarget.style.borderColor = '#B27E55'; }}
                 {...register('email')}
               />
               {errors.email && <p className="text-xs text-red-600 pl-1">{errors.email.message}</p>}
             </div>
 
             {/* Password */}
-            <div className="space-y-1.5">
-              <label
-                className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: '#575E44' }}
-                htmlFor="password"
-              >
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest block" style={{ color: '#575E44' }} htmlFor="password">
                 Password
               </label>
               <div className="relative">
@@ -141,16 +130,10 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   placeholder="••••••••"
-                  className={cn(
-                    'w-full h-14 rounded-2xl px-5 pr-14 text-base font-medium text-gray-900',
-                    'bg-white/60 backdrop-blur-sm border-2 placeholder:text-gray-400',
-                    'focus:outline-none transition-all',
-                  )}
-                  style={{
-                    borderColor: errors.password ? '#ef4444' : '#B27E55',
-                  }}
-                  onFocus={e => { if (!errors.password) e.currentTarget.style.borderColor = '#575E44'; }}
-                  onBlur={e => { if (!errors.password) e.currentTarget.style.borderColor = '#B27E55'; }}
+                  className="w-full h-14 rounded-2xl px-5 pr-14 text-base font-medium text-gray-900 bg-white/65 backdrop-blur-sm border-2 placeholder:text-gray-400 focus:outline-none transition-all"
+                  style={{ borderColor: errors.password ? '#ef4444' : '#B27E55' }}
+                  onFocus={e  => { if (!errors.password) e.currentTarget.style.borderColor = '#575E44'; }}
+                  onBlur={e   => { if (!errors.password) e.currentTarget.style.borderColor = '#B27E55'; }}
                   {...register('password')}
                 />
                 <button
@@ -171,12 +154,11 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
               type="submit"
               disabled={loading}
               className={cn(
-                'w-full h-14 rounded-2xl text-base font-bold tracking-wide',
-                'text-white transition-all active:scale-[0.98]',
-                'flex items-center justify-center gap-2',
+                'w-full h-14 rounded-2xl text-base font-bold tracking-wide mt-2',
+                'text-white flex items-center justify-center gap-2 transition-all active:scale-[0.98]',
                 loading && 'opacity-70 cursor-not-allowed'
               )}
-              style={{ backgroundColor: '#575E44', boxShadow: '0 4px 20px rgba(87,94,68,0.30)' }}
+              style={{ backgroundColor: '#575E44', boxShadow: '0 4px 24px rgba(87,94,68,0.28)' }}
               onMouseEnter={e => { if (!loading) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#4a5139'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#575E44'; }}
             >
@@ -193,9 +175,10 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
           </form>
 
           {/* Footer */}
-          <p className="text-[11px] pt-2" style={{ color: '#B27E55' }}>
+          <p className="text-xs mt-8" style={{ color: '#B27E55' }}>
             © {new Date().getFullYear()} HireTrack · All rights reserved
           </p>
+
         </div>
       </div>
     </div>

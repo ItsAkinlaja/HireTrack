@@ -200,7 +200,41 @@ Foreign keys with cascade delete ensure notes and activities are removed when a 
 
 ---
 
-## Assumptions
+## Deploying to Railway (Live Demo)
+
+Railway supports PHP + MySQL and deploys directly from GitHub.
+
+### Steps
+
+1. Go to [railway.app](https://railway.app) and sign in with GitHub
+2. Click **New Project → Deploy from GitHub repo** → select `ItsAkinlaja/HireTrack`
+3. Add a **MySQL** service to the same project (Railway wires the credentials automatically)
+4. Set these environment variables in the Railway dashboard:
+
+```
+APP_NAME=HireTrack
+APP_ENV=production
+APP_DEBUG=false
+APP_KEY=           ← generate with: php artisan key:generate --show
+APP_URL=           ← Railway will give you this URL after first deploy
+
+DB_CONNECTION=mysql
+DB_HOST=           ← from Railway MySQL service (Variables tab)
+DB_PORT=3306
+DB_DATABASE=railway
+DB_USERNAME=root
+DB_PASSWORD=       ← from Railway MySQL service
+
+SESSION_DRIVER=file
+CACHE_STORE=file
+```
+
+5. Click **Deploy** — Railway installs dependencies, builds the frontend, runs migrations and seeds automatically.
+
+The `nixpacks.toml` in the repo configures the exact build steps. No additional server configuration needed.
+
+---
+
 
 - **No multi-user roles** — authentication is included to demonstrate session-aware API design, but role-based access was not part of the brief
 - **Resume links are URLs** — no file upload infrastructure needed
